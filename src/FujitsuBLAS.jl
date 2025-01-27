@@ -9,7 +9,7 @@ const _libdummy = joinpath(@get_scratch!("libdummy"), "libdummy.so")
 function __init__()
     if "LD_LIBRARY_PATH" in keys(ENV)
         if isfile(_libdummy)
-            println("NO _libdummy")
+            println("YES _libdummy")
             # HACK TIME! Try to load an empty library which automatically loads
             # Fujitsu BLAS and also initialises the OpenMP runtime, so that we
             # can run multi-threaded BLAS calls.
@@ -17,7 +17,7 @@ function __init__()
             libs = filter(contains("libfjlapackexsve_ilp64"), dllist())
             libfjlapackexsve_ilp64 = isone(length(libs)) ? only(libs) : ""
         else
-            println("YES _libdummy")
+            println("NO _libdummy")
             # If the dummy library doesn't exist because, for example,
             # compilation failed, try to load the individual libraries we need
             # one by one, but note that this time BLAS calls won't be

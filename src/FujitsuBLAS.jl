@@ -5,7 +5,8 @@ import LinearAlgebra.BLAS
 using UUIDs
 using Scratch
 
-const _libdummy = joinpath(get_scratch!(UUID("32aa7d10-2208-4269-9553-8a2b02007e37"), "libdummy"), "libdummy.so")
+const _libdummy = joinpath(@get_scratch!("libdummy"), "libdummy.so")
+#const _libdummy = joinpath(get_scratch!(UUID("32aa7d10-2208-4269-9553-8a2b02007e37"), "libdummy"), "libdummy.so")
 
 function __init__()
     if isfile(_libdummy)
@@ -16,7 +17,7 @@ function __init__()
         dlopen(_libdummy)
         libs = filter(contains("libfjlapackexsve_ilp64"), dllist())
         libfjlapackexsve_ilp64 = isone(length(libs)) ? only(libs) : ""
-    else if "LD_LIBRARY_PATH" in keys(ENV)
+    elif "LD_LIBRARY_PATH" in keys(ENV)
         println("NO _libdummy")
         # If the dummy library doesn't exist because, for example,
         # compilation failed, try to load the individual libraries we need

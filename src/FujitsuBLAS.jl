@@ -5,7 +5,7 @@ import LinearAlgebra.BLAS
 using UUIDs
 using Scratch
 
-const _libdummy = joinpath(@get_scratch!(UUID("32aa7d10-2208-4269-9553-8a2b02007e37"), "libdummy"), "libdummy.so")
+const _libdummy = joinpath(get_scratch!(UUID("32aa7d10-2208-4269-9553-8a2b02007e37"), "libdummy"), "libdummy.so")
 
 function __init__()
     if "LD_LIBRARY_PATH" in keys(ENV)

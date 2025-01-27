@@ -8,7 +8,8 @@ println("TRYING BUILD _libdummy")
 if !isnothing(Sys.which("fcc"))
     println("with fcc")
     mkpath(dirname(_libdummy))
-    run(pipeline(`fcc -Nclang -x c - -Kopenmp -Knolargepage -shared -Wl,-rpath="\$(dirname \$(which fcc))/../lib64" -lfjlapackexsve_ilp64 -o $(_libdummy)`; stdin=IOBuffer("")))
+    const _fjlibdir = readchomp(`sh -c 'echo "$(dirname "$(which fcc)")/../lib64"'`)
+    run(pipeline(`fcc -Nclang -x c - -Kopenmp -Knolargepage -shared -Wl,-rpath=$(_fjlibdir) -L$(_fjlibdir) -lfjlapackexsve_ilp64 -o $(_libdummy)`; stdin=IOBuffer("")))
 else
     println("...NO FCC FOUND")
 end

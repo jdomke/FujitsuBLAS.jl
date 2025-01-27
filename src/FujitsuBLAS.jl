@@ -2,6 +2,7 @@ module FujitsuBLAS
 
 import Libdl: find_library, dlopen, dllist, RTLD_GLOBAL
 import LinearAlgebra.BLAS
+using UUIDs
 using Scratch
 
 const _libdummy = joinpath(@get_scratch!(UUID("32aa7d10-2208-4269-9553-8a2b02007e37"), "libdummy"), "libdummy.so")

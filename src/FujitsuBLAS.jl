@@ -17,7 +17,7 @@ function __init__()
         dlopen(_libdummy)
         libs = filter(contains("libfjlapackexsve_ilp64"), dllist())
         libfjlapackexsve_ilp64 = isone(length(libs)) ? only(libs) : ""
-    elif "LD_LIBRARY_PATH" in keys(ENV)
+    elseif "LD_LIBRARY_PATH" in keys(ENV)
         println("NO _libdummy")
         # If the dummy library doesn't exist because, for example,
         # compilation failed, try to load the individual libraries we need
